@@ -1,37 +1,28 @@
-#include <iostream> // Lai strâdâtu ar ievadi un izvadi
-#include <vector> // Lai saglabâtu iespçjamos vârdus sarakstâ
-#include <string> // Strâdâğanai ar tekstiem
-#include <cstdlib> // Priekğ random funkcijas
-#include <ctime> // Lai ìenerçtu atğíirîgus nejauğus skaitïus
-#include <algorithm> // Lai iegutu funkcijas, piemeram, all_of()
+#include <iostream> // Lai strÄdÄtu ar ievadi un izvadi
+#include <vector> // Lai saglabÄtu iespÄ“jamos vÄrdus sarakstÄ
+#include <string> // StrÄdÄÅ¡anai ar tekstiem
+#include <cstdlib> // PriekÅ¡ random funkcijas
+#include <ctime> // Lai Ä£enerÄ“tu atÅ¡Ä·irÄ«gus nejauÅ¡us skaitÄ¼us
+#include <algorithm> // Lai iegÅ«tu funkcijas, piemeram, all_of()
 
 using namespace std;
 
-void displayGameIntro() { // Spçles "intro" sekcija, izskaidroti spçles noteikumi, kalopjas kâ sâkuma ekrâns.
-
-cout << "Laipni lugts karatavas!" << endl;
-cout << "Saja spele tev ir jauzmin slepenais vards (angliski)!" << endl;
-cout << "Ar katru nepareizu minejumu, tu zaude dzivibu." << endl;
-cout << "Veiksmi!" << endl;
-cout << endl;
-
+void displayGameIntro() { // SpÄ“les intro
+    cout << "Laipni lÅ«gts karatavas!" << endl;
+    cout << "Å ajÄ spÄ“lÄ“ tev ir jÄuzmin slepenais vÄrds (angliski)!" << endl;
+    cout << "Ar katru nepareizu minÄ“jumu, tu zaudÄ“ dzÄ«vÄ«bu." << endl;
+    cout << "Veiksmi!" << endl;
+    cout << endl;
 }
 
-void vardi() { // Funkcija, kas izvçlas nejausi vârdu no datu masîva
-string randomVards[11]={"Function","Programs","Blueberry","Windows","Computer","Happiness","Rainbows","Attention","Starlight","Refrigerator","Conditioner"};
-srand(time(0));
-int randomNum = rand() % 12;
-cout << randomVards[randomNum];
-
+string getRandomWord() {// Funkcija nejausi izvelas vardu
+    vector<string> randomVards = {"Function", "Programs", "Blueberry", "Windows", "Computer", "Happiness", "Rainbows", "Attention", "Starlight", "Refrigerator", "Conditioner"};
+    srand(time(0));
+    int randomNum = rand() % randomVards.size();
+    return randomVards[randomNum];
 }
 
-// Function to choose a random word from the list
-string getRandomWord(const vector<string>& words) {
-    return words[rand() % words.size()];
-}
-
-
-void displayWord(const string& word, const vector<bool>& guessed) {
+void displayWord(const string &word, const vector<bool> &guessed) { // Funkcija aizvieto burtus ar _
     for (size_t i = 0; i < word.size(); i++) {
         if (guessed[i])
             cout << word[i] << " ";
@@ -41,8 +32,25 @@ void displayWord(const string& word, const vector<bool>& guessed) {
     cout << endl;
 }
 
-int main() {
-
-vardi();
-
+char getGuess() { // LietotÄjs ievada minÄ“jumu
+    char guess;
+    cout << "Ievadi burtu: ";
+    cin >> guess;
+    return tolower(guess);
 }
+
+int chooseDifficulty() { // Izvelas grutibas limeni
+    int level;
+    cout << "Izvelies grutibas limeni: (1) Viegls, (2) Videjs, (3) Gruts" << endl;
+    cout << "Ievadi 1, 2 vai 3: ";
+    cin >> level;
+    return level;
+}
+
+int getAttemptsForDifficulty(int level) {
+    switch (level) {
+        case 1: return 12;
+        case 2: return 8;
+        case 3: return 6;
+        default: return 6;
+    }
