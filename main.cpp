@@ -12,26 +12,26 @@ using namespace std;
 // Parada sveicienu un noteikumus
 void speleIntro() {
     cout << "Laipni lugts karatavas!" << endl;
-    cout << "Spele jaatmin slepens vards anglu valodaa." << endl;
+    cout << "Spele jaatmin slepens vards anglu valodaa!!" << endl;
     cout << "Par katru nepareizu minejumu tiek zaudeta dziviba." << endl << endl;
 }
 
 
 
 // Atgriez vienu nejausi izveletu vardu no saraksta
-string sanemtVardu() {
-    vector<string> varduSaraksts = {
+string randomVaards() {
+    vector<string> saraksts = {
         "Function", "Programs", "Blueberry", "Windows", "Computer",
         "Happiness", "Rainbows", "Attention", "Starlight", "Refrigerator", "Conditioner"
     };
     srand(time(0));
-    return varduSaraksts[rand() % varduSaraksts.size()];
+    return saraksts[rand() % saraksts.size()];
 }
 
 
 
 // Paraada vardu ar pasleptiem burtiem (_), iznemot jau atminetos
-void paraditVardu(const string& vards, const vector<bool>& uzminets) {
+void tuksumi(const string& vards, const vector<bool>& uzminets) {
     for (size_t i = 0; i < vards.size(); ++i) {
         cout << (uzminets[i] ? vards[i] : '_') << " ";
     }
@@ -63,14 +63,14 @@ int sanemtDzivibas(int limenis) {
 
 
 // Galvenais speles cikls vienai spelei
-bool speletKolu(int dzivibas) {
-    string vards = sanemtVardu();
+bool speele(int dzivibas) {
+    string vards = randomVaards();
     vector<bool> uzminets(vards.size(), false);
     string minejumi;
 
     while (dzivibas > 0) {
         // Parada spelei aktualo vardu, dzivibas un minejumus
-        paraditVardu(vards, uzminets);
+        tuksumi(vards, uzminets);
         cout << "Atlikusas dzivibas: " << dzivibas << endl;
         cout << "Mineetie burti: " << minejumi << endl;
 
@@ -93,17 +93,17 @@ bool speletKolu(int dzivibas) {
         }
 
         minejumi += burts;
-        bool trapis = false;
+        bool pareizsminejums = false;
 
         // Parbauda vai burts ir slepenaja varda
         for (size_t i = 0; i < vards.size(); ++i) {
             if (vards[i] == burts || vards[i] == toupper(burts)) {
                 uzminets[i] = true;
-                trapis = true;
+                pareizsminejums = true;
             }
         }
-        // Ja burts nav trapis, samazina dzivibu
-        if (!trapis) {
+        // Ja burts nav pareizi atmineets, samazina dzivibu
+        if (!pareizsminejums) {
             dzivibas--;
             cout << "Burts nav varda!" << endl;
         }
@@ -126,14 +126,14 @@ bool speletKolu(int dzivibas) {
 
 
 // Cikls, kas atkartoti izpilda speli, kamer lietotajs to velas
-void speletSpele() {
+void speletvelreiz() {
     int uzvaras = 0, zaudejumi = 0;
     char velreiz = 'y';
 
     while (velreiz == 'y' || velreiz == 'Y') {
         int limenis = izveletiesLimeni();
         int dzivibas = sanemtDzivibas(limenis);
-        bool uzvarets = speletKolu(dzivibas);
+        bool uzvarets = speele(dzivibas);
 
         if (uzvarets) uzvaras++;
         else zaudejumi++;
@@ -150,6 +150,6 @@ void speletSpele() {
 // Programmas sakums
 int main() {
     speleIntro();
-    speletSpele();
+    speletvelreiz();
     return 0;
 }
