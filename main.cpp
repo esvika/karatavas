@@ -109,7 +109,7 @@ bool speele(int dzivibas) {
         }
 
         // Ja visi burti ir atmineti, spele uzvareta
-        if (all_of(uzminets.begin(), uzminets.end(), [](bool g) { return g; })) {
+        if (all_of(uzminets.begin(), uzminets.end(), [](bool burtsAtminets) { return burtsAtminets; })) {
             cout << "Apsveicam! Tu atmineji vardu: " << vards << endl;
             return true;
         }
