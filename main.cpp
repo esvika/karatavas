@@ -3,7 +3,7 @@
 #include <string> // Stradashanai ar tekstiem
 #include <cstdlib> // Prieks random funkcijas
 #include <ctime> // Lai genereetu atskirigus nejausus skaitlus
-#include <algorithm> // Lai iegutu funkcijas, piemeram, all_of()
+#include <algorithm> // Lai iegutu funkciju all_of()
 
 using namespace std;
 
